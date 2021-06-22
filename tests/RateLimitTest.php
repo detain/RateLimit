@@ -55,9 +55,21 @@ class RateLimitTest extends TestCase
         if (!extension_loaded('redis')) {
             $this->markTestSkipped("redis extension not installed");
         }
-        $redis = new \Redis();
-        $redis->connect('localhost');
-        $redis->flushDB(); // clear redis db
+
+        $redis_host = getenv('REDIS_HOST');
+
+        if ($redis_host === false) {
+            $redis_host = 'localhost';
+        }
+
+        try {
+            $redis = new \Redis();
+            $redis->connect($redis_host);
+            $redis->flushDB(); // clear redis db
+        } catch (\RedisException $e) {
+            error_log("Failed to connect to redis? " . $e->getMessage());
+            $this->markTestSkipped("Failed to connect to redis? " . $e->getMessage());
+        }
 
         $adapter = new Adapter\Redis($redis);
         $this->check($adapter);
@@ -65,17 +77,28 @@ class RateLimitTest extends TestCase
 
     public function testCheckPredis()
     {
-        $predis = new \Predis\Client(
-            [
-                'scheme' => 'tcp',
-                'host' => '127.0.0.1',
-                'port' => 6379,
-                'cluster' => false,
-                'database' => 1
-            ]
-        );
-        $predis->flushdb(); // clear redis db.
-        $adapter = new Adapter\Predis($predis);
+        $redis_host = getenv('REDIS_HOST');
+
+        if ($redis_host === false) {
+            $redis_host = 'localhost';
+        }
+
+        try {
+            $predis = new \Predis\Client(
+                [
+                    'scheme' => 'tcp',
+                    'host' => $redis_host,
+                    'port' => 6379,
+                    'cluster' => false,
+                    'database' => 1
+                ]
+            );
+            $predis->flushdb(); // clear redis db.
+            $adapter = new Adapter\Predis($predis);
+        } catch (\Predis\Connection\ConnectionException $e) {
+            error_log("Failed to connect to (p)redis : " . $e->getMessage());
+            $this->markTestSkipped("Could not connect to (p)redis");
+        }
         $this->check($adapter);
     }
 
@@ -92,8 +115,13 @@ class RateLimitTest extends TestCase
         if (!extension_loaded('memcached')) {
             $this->markTestSkipped("memcached extension not installed");
         }
+
+        $memcache_host = getenv('MEMCACHE_HOST');
+        if ($memcache_host === false) {
+            $memcache_host = 'localhost';
+        }
         $m = new \Memcached();
-        $m->addServer('localhost', 11211);
+        $m->addServer($memcache_host, 11211);
         $adapter = new Adapter\Memcached($m);
         $this->check($adapter);
     }
