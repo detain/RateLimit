@@ -1,0 +1,50 @@
+name: GitHub Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+        options: --health-cmd="redis-cli ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      memcache:
+        image: memcached
+        ports:
+          - 11211:11211
+    strategy:
+      matrix:
+        php-versions: [ '7.2', '7.3', '7.4', '8.0' ]
+
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        tools: composer
+        extensions: apc, redis, apcu, memcache, memcached
+        ini-values: apc.enable_cli=1
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+
+    - name: Run test suite
+      run: composer build
+      env:
+         REDIS_HOST: localhost
+         MEMCACHE_HOST: localhost
