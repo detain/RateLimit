@@ -1,6 +1,8 @@
 # RateLimit
 
-[![Build Status](https://travis-ci.org/DavidGoodwin/RateLimit.svg)](https://travis-ci.org/DavidGoodwin/RateLimit/)
+[![GitHub Build](https://github.com/DavidGoodwin/RateLimit/actions/workflows/php.yml/badge.svg)](https://github.com/DavidGoodwin/RateLimit/actions/workflows/php.yml)
+
+[![Travis Build](https://travis-ci.org/DavidGoodwin/RateLimit.svg)](https://travis-ci.org/DavidGoodwin/RateLimit/)
 
 [![Coverage Status](https://coveralls.io/repos/github/DavidGoodwin/RateLimit/badge.svg?branch=master)](https://coveralls.io/github/DavidGoodwin/RateLimit?branch=master)
 
