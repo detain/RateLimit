@@ -149,4 +149,36 @@ class RateLimit
     {
         return $this->name . ":" . $id . ":allow";
     }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param int $maxRequests
+     */
+    public function setMaxRequests(int $maxRequests): void
+    {
+        $this->maxRequests = $maxRequests;
+    }
+
+    /**
+     * @param int $period
+     */
+    public function setPeriod(int $period): void
+    {
+        $this->period = $period;
+    }
+
+    /**
+     * @param Adapter $adapter
+     */
+    public function setAdapter(Adapter $adapter): void
+    {
+        $this->adapter = $adapter;
+    }
 }
