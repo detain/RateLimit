@@ -47,9 +47,9 @@ class RateLimitTest extends TestCase
         }
 
         try {
-        $redis = new \Redis();
+            $redis = new \Redis();
             $redis->connect($redis_host);
-        $redis->flushDB(); // clear redis db
+            $redis->flushDB(); // clear redis db
         } catch (\RedisException $e) {
             error_log("Failed to connect to redis? " . $e->getMessage());
             $this->markTestSkipped("Failed to connect to redis? " . $e->getMessage());
@@ -68,17 +68,17 @@ class RateLimitTest extends TestCase
         }
 
         try {
-        $predis = new \Predis\Client(
-            [
+            $predis = new \Predis\Client(
+                [
                 'scheme' => 'tcp',
                     'host' => $redis_host,
                 'port' => 6379,
                 'cluster' => false,
                 'database' => 1
             ]
-        );
-        $predis->flushdb(); // clear redis db.
-        $adapter = new Adapter\Predis($predis);
+            );
+            $predis->flushdb(); // clear redis db.
+            $adapter = new Adapter\Predis($predis);
         } catch (\Predis\Connection\ConnectionException $e) {
             error_log("Failed to connect to (p)redis : " . $e->getMessage());
             $this->markTestSkipped("Could not connect to (p)redis");
