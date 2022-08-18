@@ -1,7 +1,7 @@
 # rate-limit
 
 [![GitHub Build](https://github.com/detain/rate-limit/actions/workflows/php.yml/badge.svg)](https://github.com/detain/rate-limit/actions/workflows/php.yml)
-[![Travis Build](https://travis-ci.com/detain/rate-limit.svg)](https://travis-ci.com/detain/rate-limit/)
+[![Travis Build](https://app.travis-ci.com/detain/rate-limit.svg?branch=master)](https://app.travis-ci.com/detain/rate-limit)
 [![Coverage Status](https://coveralls.io/repos/github/detain/rate-limit/badge.svg?branch=master)](https://coveralls.io/github/detain/rate-limit?branch=master)
 [![Code Climate](https://codeclimate.com/github/detain/rate-limit/badges/gpa.svg)](https://codeclimate.com/github/detain/rate-limit)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/detain/rate-limit/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/detain/rate-limit/?branch=master)
