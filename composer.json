@@ -2,7 +2,6 @@
   "type": "library",
   "name": "detain/rate-limit",
   "description": "PHP rate limiting library with Token Bucket and Leaky Bucket Algorithms, based on palepurple/rate-limit, grandson to touhonoob/rate-limit, and jeroenvisser101/LeakyBucket",
-  "version": "3.0.0",
   "keywords": ["ratelimit", "throttling", "limits", "tokenbucket", "leakybucket"],
   "require": {
     "php": ">=5.6"
