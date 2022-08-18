@@ -313,7 +313,7 @@ class LeakyBucket
     /**
      * Gets the active bucket's value
      *
-     * @return array<string, mixed>
+     * @return float|mixed
      *
      * @throws \Exception
      */
